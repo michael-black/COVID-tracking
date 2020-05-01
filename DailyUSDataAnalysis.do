@@ -1,7 +1,8 @@
 * Stata file for analyzing data for the U.S. from the covid tracking project: https://covidtracking.com
 set more off
 clear all
- 
+
+cd "/Users/michaelblack/Documents/COVID-tracking"
 import delimited using "https://covidtracking.com/api/v1/states/daily.csv", clear
 
 
@@ -18,6 +19,28 @@ drop date
 rename date2 date
 order date
 
-*keep if inlist(state, "TX", "NY", "CA", "NJ")
 
-tw sc death date, by(state)
+// Tracking new infections for my family
+preserve
+	keep if state == "TX"
+	tw (sc positiveincrease date) (lowess positiveincrease date), saving(TX, replace) leg(off) title("TX")
+restore
+
+preserve
+	keep if state == "AR"
+	tw (sc positiveincrease date) (lowess positiveincrease date), saving(AR, replace) leg(off) title("AR")
+restore
+
+preserve
+	keep if state == "CT"
+	tw (sc positiveincrease date) (lowess positiveincrease date), saving(CT, replace) leg(off) title("CT")
+restore
+
+preserve
+	keep if state == "NY"
+	tw (sc positiveincrease date) (lowess positiveincrease date), saving(NY, replace) leg(off) title("NY")
+restore
+
+
+gr combine TX.gph AR.gph CT.gph NY.gph
+gr export newinfections_fam.png, replace
