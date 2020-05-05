@@ -20,7 +20,7 @@ tx_plot <- ggplot() +
   geom_smooth(aes(date, positiveIncrease), data = txpre) +
   geom_vline(xintercept = as.numeric(ymd("2020-04-30")), color = "red") +
   geom_point(aes(date, positiveIncrease), data = txpos)+
-  #geom_smooth(aes(date, positiveIncrease), data = txpre) +
+  #geom_smooth(aes(date, positiveIncrease), data = txpos) +
   theme_classic() +
   labs(title = "New Infections in Texas, Daily", x = "Date", y = "New Infections")
 
@@ -50,3 +50,36 @@ ny_plot <- ggplot(ny, aes(date, positiveIncrease))+
 
 final<- grid.arrange(tx_plot, ar_plot, ct_plot, ny_plot)
 ggsave("final.png", plot = final)
+
+#### Local Difference in Infection Rates for re-opened economies
+txpre2 <- data %>%
+  filter(state == "TX", 
+         date <= "2020-04-30",
+         date >= "2020-04-16")
+txpos2 <- data %>%
+  filter(state == "TX", 
+         date >= "2020-05-01")
+ggplot() +
+  geom_point(aes(date, positiveIncrease), data = txpre2)+
+  geom_smooth(aes(date, positiveIncrease), data = txpre2, method = "gam") +
+  geom_vline(xintercept = as.numeric(ymd("2020-04-30")), color = "red") +
+  geom_point(aes(date, positiveIncrease), data = txpos2)+
+  geom_smooth(aes(date, positiveIncrease), data = txpos2, method = "gam") +
+  theme_classic() +
+  labs(title = "New Infections in Texas, Daily", x = "Date", y = "New Infections")
+
+gapre2 <- data %>%
+  filter(state == "GA", 
+         date <= "2020-04-23",
+         date >= "2020-04-10")
+gapos2 <- data %>%
+  filter(state == "GA", 
+         date >= "2020-04-24")
+ggplot() +
+  geom_point(aes(date, positiveIncrease), data = gapre2)+
+  geom_smooth(aes(date, positiveIncrease), data = gapre2, method = "gam") +
+  geom_vline(xintercept = as.numeric(ymd("2020-04-24")), color = "red") +
+  geom_point(aes(date, positiveIncrease), data = gapos2)+
+  geom_smooth(aes(date, positiveIncrease), data = gapos2, method = "gam") +
+  theme_classic() +
+  labs(title = "New Infections in Georgia, Daily", x = "Date", y = "New Infections")
