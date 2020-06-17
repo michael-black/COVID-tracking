@@ -9,10 +9,10 @@ cd "/Users/michaelblack/Downloads"
 
 // Set state and county of interest
 local state "Texas"
-local county "Brazos"
+local county "Tarrant"
 
 // Set current day in May
-local mayday 21
+local juneday 3
 ****************************************************************************************
 ****************************************************************************************
 ****************************************************************************************
@@ -48,13 +48,22 @@ forvalues i = 1(1)9{
 	gen datestr = "05-0`i'-2020"
 	save "`county'_05_0`i'_2020.dta", replace
 }
-forvalues i = 10(1)`mayday'{
+forvalues i = 10(1)31{
 	import delimited using "`path'/05-`i'-2020.csv", clear
 	keep if province_state == "`state'"
 	keep if admin2 == "`county'"
 	gen datestr = "05-`i'-2020"
 	save "`county'_05_`i'_2020.dta", replace
 }
+// Get June Data
+forvalues i = 1(1)`juneday'{
+	import delimited using "`path'/06-0`i'-2020.csv", clear
+	keep if province_state == "`state'"
+	keep if admin2 == "`county'"
+	gen datestr = "06-0`i'-2020"
+	save "`county'_06_0`i'_2020.dta", replace
+}
+
 
 // Append all data
 use "`county'_03_22_2020.dta", clear
@@ -70,8 +79,11 @@ forvalues i = 10(1)30{
 forvalues i = 1(1)9{
 	append using "`county'_05_0`i'_2020.dta"
 }
-forvalues i = 10(1)`mayday'{
+forvalues i = 10(1)31{
 	append using "`county'_05_`i'_2020.dta"
+}
+forvalues i = 1(1)`juneday'{
+	append using "`county'_06_0`i'_2020.dta"
 }
 save "`county'.dta", replace
 
@@ -88,8 +100,11 @@ forvalues i = 10(1)30{
 forvalues i = 1(1)9{
 	erase "`county'_05_0`i'_2020.dta"
 }
-forvalues i = 10(1)`mayday'{
+forvalues i = 10(1)31{
 	erase "`county'_05_`i'_2020.dta"
+}
+forvalues i = 1(1)`juneday'{
+	erase "`county'_06_0`i'_2020.dta"
 }
 
 // Format date variable
