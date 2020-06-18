@@ -44,7 +44,10 @@ hospital <- ggplot() +
   labs(title = "Hospitalizations in Texas", x = "Date", y = "Number Hospitalized")
 
 
-final<- grid.arrange(curve, 
+forabbott<- grid.arrange(curve, 
                      hospital,
                      death, nrow=1)
-ggsave("final.png", plot = final)
+ggsave("forabbott.png", plot = forabbott)
+ggsave("infections_tx.png", plot = curve)
+ggsave("hospitalizations_tx.png", plot = hospital)
+ggsave("deaths_tx.png", plot = death)
