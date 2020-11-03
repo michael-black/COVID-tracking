@@ -45,7 +45,7 @@ ax.scatter(dc['date'], dc['daily_new'], s=10, c = 'black')
 fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for District of Columbia')
-plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=10))
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
 
 # plt.show()
 plt.savefig('dc_dnc.png', dpi = 1200)
