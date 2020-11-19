@@ -15,7 +15,6 @@ df = rdf[rdf['county'].str.contains("Brazos")].copy()
 df['lagcases'] = df['cases'].shift(1)
 df['daily_new'] = df['cases'] - df['lagcases']
 df['ma7'] = df['daily_new'].rolling(window = 7).mean()
-
 fig, ax = plt.subplots()
 ax.plot(df['date'], df['ma7'])
 ax.scatter(df['date'], df['daily_new'], s=10, c = 'black')
@@ -27,8 +26,6 @@ fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for Brazos County, TX')
 plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
-
-# plt.show()
 plt.savefig('brazos_dnc.png', dpi = 1200)
 
 ## Washington, DC
@@ -36,7 +33,6 @@ dc = rdf[rdf['county'].str.contains("District of Columbia")].copy()
 dc['lagcases'] = dc['cases'].shift(1)
 dc['daily_new'] = dc['cases'] - dc['lagcases']
 dc['ma7'] = dc['daily_new'].rolling(window = 7).mean()
-
 fig, ax = plt.subplots()
 ax.plot(dc['date'], dc['ma7'])
 ax.scatter(dc['date'], dc['daily_new'], s=10, c = 'black')
@@ -46,6 +42,20 @@ fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for District of Columbia')
 plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
-
-# plt.show()
 plt.savefig('dc_dnc.png', dpi = 1200)
+
+## Washington County, Arkansas
+w_ar = rdf[rdf['county'].str.contains("Washington") & rdf['state'].str.contains("Arkansas")].copy()
+w_ar['lagcases'] = w_ar['cases'].shift(1)
+w_ar['daily_new'] = w_ar['cases'] - w_ar['lagcases']
+w_ar['ma7'] = w_ar['daily_new'].rolling(window = 7).mean()
+fig, ax = plt.subplots()
+ax.plot(w_ar['date'], w_ar['ma7'])
+ax.scatter(w_ar['date'], w_ar['daily_new'], s=10, c = 'black')
+fig.autofmt_xdate()
+ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
+ax.set_title('Daily New Cases for Washington County, AR')
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
+plt.savefig('washington_ar_dnc.png', dpi = 1200)
+
+
