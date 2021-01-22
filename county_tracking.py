@@ -1,3 +1,6 @@
+import sys
+print(sys.version)
+
 import pandas as pd
 import requests
 import io
