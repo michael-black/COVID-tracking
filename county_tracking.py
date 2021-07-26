@@ -28,7 +28,7 @@ ax.axvline(x="2020-08-19", c = 'r')
 fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for Brazos County, TX')
-plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=30))
 plt.savefig('brazos_dnc.png', dpi = 1200)
 
 ## Washington, DC
@@ -44,7 +44,7 @@ ax.scatter(dc['date'], dc['daily_new'], s=10, c = 'black')
 fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for District of Columbia')
-plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=30))
 plt.savefig('dc_dnc.png', dpi = 1200)
 
 ## Washington County, Arkansas
@@ -58,7 +58,7 @@ ax.scatter(w_ar['date'], w_ar['daily_new'], s=10, c = 'black')
 fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
 ax.set_title('Daily New Cases for Washington County, AR')
-plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=20))
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=30))
 plt.savefig('washington_ar_dnc.png', dpi = 1200)
 
 
